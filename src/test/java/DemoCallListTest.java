@@ -24,7 +24,7 @@ class DemoCallListTest {
     }
 
     @Test
-    void clear() {
+    void really_clears() {
         demoCallList.clear();
         assertEquals(0, demoCallList.missedCallsCount());
     }
@@ -42,6 +42,8 @@ class DemoCallListTest {
     }
 
     @Test
-    void generateDemoMissedCallsSequence() {
+    void demo_adds_4calls() {
+        demoCallList.generateDemoMissedCallsSequence();
+        assertEquals(8, demoCallList.missedCallsCount());
     }
 }

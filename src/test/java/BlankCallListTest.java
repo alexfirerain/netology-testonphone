@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BlankCallListTest {
     CallList callList;
@@ -10,10 +9,6 @@ class BlankCallListTest {
     @BeforeEach
     void setUp() {
         callList = new CallList();
-    }
-
-    @Test
-    void takeAMissedCall() {
     }
 
     @Test
@@ -27,23 +22,35 @@ class BlankCallListTest {
     }
 
     @Test
-    void time_really_promotes() {
+    void promotion_changes_time() {
+        long timeBefore = callList.virtualInternalTime.getTime();
+        callList.promoteVirtualTime(1000L);
+        long timeAfter = callList.virtualInternalTime.getTime();
+        assertNotEquals(timeBefore, timeAfter);
+    }
+
+    @Test
+    void time_correctly_promotes() {
         long timeBefore = callList.virtualInternalTime.getTime();
         callList.promoteVirtualTime(1000L);
         long timeAfter = callList.virtualInternalTime.getTime();
         assertEquals(timeBefore + 1000L, timeAfter);
     }
 
-
+    @Test
+    void taking_adds_aCall() {
+        callList.takeAMissedCall("+7-000");
+        assertEquals(1, callList.missedCalls.size());
+    }
 
     @Test
-    void new_missedCall_adds() {
+    void generation_adds_aCall() {
         callList.generateAMissedCall("+7-000");
         assertEquals(1, callList.missedCalls.size());
     }
 
     @Test
-    void new_missedCall_adds_atTail() {
+    void generatedCall_adds_atTail() {
         callList.generateAMissedCall("+7-000");
         assertEquals("+7-000", callList.missedCalls.get(callList.missedCalls.lastKey()));
     }

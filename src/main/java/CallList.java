@@ -51,7 +51,7 @@ public class CallList {
         virtualInternalTime.setTime(virtualInternalTime.getTime() + period);
     }
     void promoteVirtualTime() {
-        promoteVirtualTime((long) (Math.random() * MAX_CALL_INTERVAL));
+        promoteVirtualTime((long) (Math.random() * MAX_CALL_INTERVAL + 1));
     }
     public void generateAMissedCall(String number) {
         promoteVirtualTime();
