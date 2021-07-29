@@ -12,15 +12,30 @@ class DemoCallListTest {
     }
 
     @Test
-    void takeAMissedCall() {
+    void filled_at_start() {
+        assertEquals(CallList.HISTORY_EXAMPLE.length,
+                demoCallList.giveMissedCalls(ContactBase.getBaseExample()).length);
     }
+
+    @Test
+    void right_demoNumbers_sequence() {
+        String[] stringsOutput = demoCallList.giveMissedCalls(new ContactBase());
+        for (int i = 0; i < CallList.HISTORY_EXAMPLE.length; i++)
+            assertTrue(stringsOutput[i].endsWith(CallList.HISTORY_EXAMPLE[i]));
+    }
+
+    @Test
+    void generating_adds_aCall() {
+        int initialLoading = demoCallList.missedCallsCount();
+        demoCallList.generateAMissedCall("+7-000");
+        assertEquals(initialLoading + 1,
+                demoCallList.missedCallsCount());
+    }
+
 
     @Test
     void giveMissedCalls() {
-    }
 
-    @Test
-    void missedCallsCount() {
     }
 
     @Test
@@ -44,6 +59,7 @@ class DemoCallListTest {
     @Test
     void demo_adds_4calls() {
         demoCallList.generateDemoMissedCallsSequence();
-        assertEquals(8, demoCallList.missedCallsCount());
+        assertEquals(CallList.HISTORY_EXAMPLE.length * 2,
+                demoCallList.missedCallsCount());
     }
 }

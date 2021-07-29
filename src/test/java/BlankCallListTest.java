@@ -12,13 +12,15 @@ class BlankCallListTest {
     }
 
     @Test
-    void empty_list_at_start() {
-        assertEquals(0, callList.giveMissedCalls(new ContactBase()).length);
+    void empty_at_start() {
+        assertEquals(0,
+                callList.missedCallsCount());
     }
 
     @Test
-    void empty_at_start() {
-        assertEquals(0, callList.missedCallsCount());
+    void empty_list_at_start() {
+        assertEquals(0,
+                callList.giveMissedCalls(ContactBase.getBaseExample()).length);
     }
 
     @Test
@@ -40,13 +42,13 @@ class BlankCallListTest {
     @Test
     void taking_adds_aCall() {
         callList.takeAMissedCall("+7-000");
-        assertEquals(1, callList.missedCalls.size());
+        assertEquals(1, callList.missedCallsCount());
     }
 
     @Test
     void generation_adds_aCall() {
         callList.generateAMissedCall("+7-000");
-        assertEquals(1, callList.missedCalls.size());
+        assertEquals(1, callList.missedCallsCount());
     }
 
     @Test
@@ -66,14 +68,26 @@ class BlankCallListTest {
         long timeBefore = callList.virtualInternalTime.getTime();
         callList.generateAMissedCall("+7-000");
         long delta = callList.missedCalls.lastKey().getTime() - timeBefore;
-        assertTrue(delta < CallList.MAX_CALL_INTERVAL);
+        assertTrue(delta <= CallList.MAX_CALL_INTERVAL + 1);
+    }
+
+    @Test
+    void two_timePeriods_differ() {
+        long timeBefore = callList.virtualInternalTime.getTime();
+        callList.generateAMissedCall("+7-000");
+        long delta1 = callList.missedCalls.lastKey().getTime() - timeBefore;
+        callList.generateAMissedCall("+7-001");
+        long delta2 = callList.missedCalls.lastKey().getTime() - timeBefore - delta1;
+        assertTrue(delta1 != delta2);
     }
 
 
 
+
     @Test
-    void demo_fills_up_with_4items() {
+    void demo_fills_up_with_History() {
         callList.generateDemoMissedCallsSequence();
-        assertEquals(4, callList.missedCallsCount());
+        assertEquals(CallList.HISTORY_EXAMPLE.length,
+                callList.missedCallsCount());
     }
 }

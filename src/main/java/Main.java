@@ -120,7 +120,7 @@ public class Main {
         System.out.println("Введите номер звонка:");
         String number = input.nextLine();
         if (!number.equals(""))
-            callList.takeAMissedCall(number);
+            callList.generateAMissedCall(number);
     }
 
     private static boolean deleteContact() {
