@@ -53,27 +53,22 @@ public class Main {
 
     private static boolean addAContact() {
         System.out.println("Добавление контакта.");
-        String name = getInput("Имя");
-        if (name.equals("")) {
-            System.out.println("Пустое поле, отмена добавления");
-            return false;
+        String[] fields = { "Имя", "Фамилия", "Телефон" };
+        String[] values = new String[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            String parameter = getInput(fields[i]);
+            if (parameter.equals("")) {
+                System.out.println("Пустое поле, отмена добавления");
+                return false;
+            }
+            values[i] = parameter;
         }
-        String surname = getInput("Фамилия");
-        if (surname.equals("")) {
-            System.out.println("Пустое поле, отмена добавления");
-            return false;
-        }
-        String number = getInput("Телефон");
-        if (number.equals("")) {
-            System.out.println("Пустое поле, отмена добавления");
-            return false;
-        }
-        if (contactBase.containsNumber(number)) {
+        if (contactBase.containsNumber(values[2])) {
             System.out.println("Контакт с таким номером уже присутствует. Заменить? (+ для подтверждения)");
             if (!input.nextLine().equals("+")) return false;
         }
         Contact.Group group = chooseGroup();
-        contactBase.addContact(new Contact(name, surname, number, group));
+        contactBase.addContact(new Contact(values[0], values[1], values[2], group));
         return true;
     }
     private static boolean editContact() {
@@ -136,11 +131,11 @@ public class Main {
 
     // служебные функции:
 
-    private static String getInput(String field) {
+    protected static String getInput(String field) {
         System.out.print(field + ": ");
         return input.nextLine();
     }
-    private static Contact.Group chooseGroup() {
+    protected static Contact.Group chooseGroup() {
         while (true) {
             System.out.println("Выберите группу контакта:\n1 = Работа\n2 = Друзья\n3 = Семья");
             switch (input.nextLine()) {
@@ -150,7 +145,7 @@ public class Main {
             }
         }
     }
-    private static Contact findContact(String purpose) {
+    protected static Contact findContact(String purpose) {
         System.out.println("Выбрать контакт " + purpose + " по:\n" +
                 "1 = имени и фамилии\n" +
                 "2 = номеру телефона");

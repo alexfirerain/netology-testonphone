@@ -10,7 +10,7 @@ public class CallList {
     static long MAX_CALL_INTERVAL = 90_000_000L;
     private final SimpleDateFormat listDateFormat = new SimpleDateFormat("E d MMMM HH:mm");
 
-    static final String[] HISTORY_EXAMPLE = { "+7921-1001010", "+7951-8821316", "+7921-1002030", "+7921-1003090" };
+    static final String[] CALLS_EXAMPLE = { "+7921-1001010", "+7951-8821316", "+7921-1002030", "+7921-1003090" };
 
     public CallList(long initialTime) {
         missedCalls = new TreeMap<>();
@@ -24,7 +24,7 @@ public class CallList {
         if (withDemoSequence) generateDemoMissedCallsSequence();
     }
 
-    void takeAMissedCall(String number) {
+     void takeAMissedCall(String number) {
         missedCalls.put(new Date(virtualInternalTime.getTime()), number);
     }
 
@@ -60,6 +60,6 @@ public class CallList {
         takeAMissedCall(number);
     }
     void generateDemoMissedCallsSequence() {
-        Arrays.stream(HISTORY_EXAMPLE).forEach(this::generateAMissedCall);
+        Arrays.stream(CALLS_EXAMPLE).forEach(this::generateAMissedCall);
     }
 }

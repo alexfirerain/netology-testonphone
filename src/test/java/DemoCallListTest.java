@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DemoCallListTest {
+    private final static String EXAMPLE_NUMBER = "+7-000";
+
     CallList demoCallList;
 
     @BeforeEach
@@ -13,29 +15,32 @@ class DemoCallListTest {
 
     @Test
     void filled_at_start() {
-        assertEquals(CallList.HISTORY_EXAMPLE.length,
+        assertEquals(CallList.CALLS_EXAMPLE.length,
                 demoCallList.giveMissedCalls(ContactBase.getBaseExample()).length);
     }
 
     @Test
     void right_demoNumbers_sequence() {
         String[] stringsOutput = demoCallList.giveMissedCalls(new ContactBase());
-        for (int i = 0; i < CallList.HISTORY_EXAMPLE.length; i++)
-            assertTrue(stringsOutput[i].endsWith(CallList.HISTORY_EXAMPLE[i]));
+        for (int i = 0; i < CallList.CALLS_EXAMPLE.length; i++)
+            assertTrue(stringsOutput[i].endsWith(CallList.CALLS_EXAMPLE[i]));
     }
 
     @Test
     void generating_adds_aCall() {
         int initialLoading = demoCallList.missedCallsCount();
-        demoCallList.generateAMissedCall("+7-000");
+        demoCallList.generateAMissedCall(EXAMPLE_NUMBER);
         assertEquals(initialLoading + 1,
                 demoCallList.missedCallsCount());
     }
 
-
     @Test
-    void giveMissedCalls() {
-
+    void generating_adds_aCall_atTail() {
+        int initialLoading = demoCallList.missedCallsCount();
+        demoCallList.generateAMissedCall(EXAMPLE_NUMBER);
+        assertAll();
+        assertEquals(initialLoading + 1, demoCallList.missedCallsCount());
+        assertEquals(EXAMPLE_NUMBER, demoCallList.missedCalls.get(demoCallList.missedCalls.lastKey()));
     }
 
     @Test
@@ -45,21 +50,17 @@ class DemoCallListTest {
     }
 
     @Test
-    void promoteVirtualTime() {
+    void time_correctly_promotes() {
+        long timeBefore = demoCallList.virtualInternalTime.getTime();
+        demoCallList.promoteVirtualTime(1000L);
+        long timeAfter = demoCallList.virtualInternalTime.getTime();
+        assertEquals(timeBefore + 1000L, timeAfter);
     }
 
     @Test
-    void testPromoteVirtualTime() {
-    }
-
-    @Test
-    void generateAMissedCall() {
-    }
-
-    @Test
-    void demo_adds_4calls() {
+    void demo_doubles_callList() {
         demoCallList.generateDemoMissedCallsSequence();
-        assertEquals(CallList.HISTORY_EXAMPLE.length * 2,
+        assertEquals(CallList.CALLS_EXAMPLE.length * 2,
                 demoCallList.missedCallsCount());
     }
 }

@@ -1,6 +1,6 @@
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class ContactBase {
     private final HashMap<String, Contact> contacts;
@@ -53,10 +53,15 @@ public class ContactBase {
         return null;
     }
 
+    void removeContact(String number) {
+        contacts.remove(number);
+    }
+
+    // демо-пример списка контактов
     public static ContactBase getBaseExample() {
         ContactBase demoBase = new ContactBase();
 
-        Arrays.asList(
+        Stream.of(
                 new Contact("Пахом", "Пахомыч", "+7931-7422816", Contact.Group.WORK),
                 new Contact("Жека", "Склад", "+7921-5446819", Contact.Group.FRIENDS),
                 new Contact("Давар", "Агроном", "+7951-8821316", Contact.Group.FAMILY),
@@ -65,9 +70,4 @@ public class ContactBase {
 
         return demoBase;
     }
-
-    void removeContact(String number) {
-        contacts.remove(number);
-    }
-
 }
