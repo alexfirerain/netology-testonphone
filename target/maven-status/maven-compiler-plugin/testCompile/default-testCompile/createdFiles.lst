@@ -1,3 +1,4 @@
 ContactTest.class
-BlankCallListTest.class
 DemoCallListTest.class
+BlankCallListTest.class
+DemoContactBaseTest.class

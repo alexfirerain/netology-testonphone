@@ -19,6 +19,13 @@ public class ContactBase {
                 number;
     }
 
+    public boolean containsNumber(String number) {
+        return contacts.containsKey(number);
+    }
+
+    void removeContact(String number) {
+        contacts.remove(number);
+    }
     boolean removeContact(String name, String surname) {
         for (Map.Entry<String, Contact> contactEntry : contacts.entrySet()) {
             Contact contact = contactEntry.getValue();
@@ -36,14 +43,10 @@ public class ContactBase {
 
         return contacts.get(number).toString();
     }
-
-    public boolean containsNumber(String number) {
-        return contacts.containsKey(number);
-    }
-
     Contact getContactByNumber(String number) {
         return contacts.get(number);
     }
+
     Contact getContactByNameSurname(String name, String surname) {
         for (Map.Entry<String, Contact> contact : contacts.entrySet()) {
             Contact next = contact.getValue();
@@ -51,10 +54,6 @@ public class ContactBase {
                 return next;
         }
         return null;
-    }
-
-    void removeContact(String number) {
-        contacts.remove(number);
     }
 
     // демо-пример списка контактов

@@ -29,12 +29,15 @@ public class CallList {
     }
 
     String[] giveMissedCalls(ContactBase processThrough) {
+        if (processThrough == null)
+            processThrough = new ContactBase();
         String[] lines = new String[missedCalls.size()];
         Iterator<Map.Entry<Date, String>> it = missedCalls.entrySet().iterator();
+        ContactBase contactBase = processThrough;
         IntStream.iterate(0, i -> it.hasNext(), i -> i + 1).forEach(i -> {
             Map.Entry<Date, String> next = it.next();
             lines[i] = listDateFormat.format(next.getKey()) + " " +
-                    processThrough.tryToGetNameFor(next.getValue());
+                    contactBase.tryToGetNameFor(next.getValue());
         });
         return lines;
     }

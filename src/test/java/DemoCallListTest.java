@@ -38,9 +38,12 @@ class DemoCallListTest {
     void generating_adds_aCall_atTail() {
         int initialLoading = demoCallList.missedCallsCount();
         demoCallList.generateAMissedCall(EXAMPLE_NUMBER);
-        assertAll();
-        assertEquals(initialLoading + 1, demoCallList.missedCallsCount());
-        assertEquals(EXAMPLE_NUMBER, demoCallList.missedCalls.get(demoCallList.missedCalls.lastKey()));
+        assertAll("generating_adds_aCall_atTail",
+                () -> assertEquals(initialLoading + 1,
+                        demoCallList.missedCallsCount()),
+                () -> assertEquals(EXAMPLE_NUMBER,
+                        demoCallList.missedCalls.get(demoCallList.missedCalls.lastKey()))
+        );
     }
 
     @Test
@@ -58,9 +61,15 @@ class DemoCallListTest {
     }
 
     @Test
-    void demo_doubles_callList() {
+    void newDemoSequence_doubles_callList() {
         demoCallList.generateDemoMissedCallsSequence();
         assertEquals(CallList.CALLS_EXAMPLE.length * 2,
                 demoCallList.missedCallsCount());
     }
+
+    @Test
+    void doesNot_break_if_no_ContactBase() {
+        assertDoesNotThrow(() -> demoCallList.giveMissedCalls(null));
+    }
+
 }
