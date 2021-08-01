@@ -19,6 +19,9 @@ class DemoContactBaseTest {
 
     @Test
     void contact_adds() {
+        Contact newContact = new Contact("Другой", "Знакомый", "+7-000", Contact.Group.FRIENDS);
+        cb.addContact(newContact);
+        assertTrue(cb.containsNumber("+7-000"));
     }
 
     @Test
@@ -44,7 +47,7 @@ class DemoContactBaseTest {
     }
 
     @Test
-    void contact_info_gets_ByNumber() {
+    void contactInfo_gets_ByNumber() {
         assertEquals(aContactFromBase.toString(),
                 cb.getContactInfoByNumber(exampleNumber));
     }
@@ -66,7 +69,8 @@ class DemoContactBaseTest {
 
     @Test
     void getContactByNumber() {
-        assertEquals(aContactFromBase, cb.getContactByNumber(exampleNumber));
+        assertEquals(aContactFromBase,
+                cb.getContactByNumber(exampleNumber));
     }
 
     @Test

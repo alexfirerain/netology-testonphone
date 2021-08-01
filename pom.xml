@@ -16,6 +16,7 @@
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
         <junit.platform.version>1.7.2</junit.platform.version>
         <junit.surefire.version>2.22.2</junit.surefire.version>
+        <junit.compiler.version>3.8.1</junit.compiler.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,25 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${junit.surefire.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${junit.compiler.version}</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${junit.compiler.version}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${junit.surefire.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
