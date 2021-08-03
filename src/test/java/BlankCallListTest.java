@@ -64,7 +64,8 @@ class BlankCallListTest {
     @Test
     void generatedCall_adds_atTail() {
         callList.generateAMissedCall(EXAMPLE_NUMBER);
-        assertEquals(EXAMPLE_NUMBER, callList.missedCalls.get(callList.missedCalls.lastKey()));
+        assertEquals(EXAMPLE_NUMBER,
+                callList.missedCalls.get(callList.missedCalls.lastKey()));
     }
 
     @Test

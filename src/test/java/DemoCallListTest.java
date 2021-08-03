@@ -68,7 +68,7 @@ class DemoCallListTest {
     }
 
     @Test
-    void doesNot_break_if_no_ContactBase() {
+    void notCrashes_if_noContactBase() {
         assertDoesNotThrow(() -> demoCallList.giveMissedCalls(null));
     }
 
