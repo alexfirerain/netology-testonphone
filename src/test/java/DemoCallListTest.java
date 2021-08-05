@@ -53,6 +53,13 @@ class DemoCallListTest {
     }
 
     @Test
+    void clearing_doesNotAffect_time() {
+        long timeBefore = demoCallList.virtualInternalTime.getTime();
+        demoCallList.clear();
+        assertEquals(timeBefore, demoCallList.virtualInternalTime.getTime());
+    }
+
+    @Test
     void time_correctly_promotes() {
         long timeBefore = demoCallList.virtualInternalTime.getTime();
         demoCallList.promoteVirtualTime(1000L);
